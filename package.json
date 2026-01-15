@@ -1,0 +1,23 @@
+{
+  "name": "troubleshooting-cms",
+  "version": "1.0.0",
+  "description": "Sanity CMS for troubleshooting content",
+  "main": "index.js",
+  "scripts": {
+    "start": "sanity start",
+    "build": "sanity build",
+    "dev": "sanity dev",
+    "deploy": "sanity deploy"
+  },
+  "dependencies": {
+    "@sanity/client": "^6.21.0",
+    "@sanity/vision": "^3.21.0",
+    "sanity": "^3.45.0",
+    "styled-components": "^6.1.15"
+  },
+  "devDependencies": {
+    "@sanity/eslint-config-studio": "^3.0.1",
+    "eslint": "^8.57.0",
+    "prettier": "^3.2.5"
+  }
+}
