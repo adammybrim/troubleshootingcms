@@ -1,4 +1,5 @@
 import { defineType, defineField } from 'sanity'
+import { sectionTypes } from './sections'
 
 export const schemaType = defineType({
   name: 'troubleshootingGuide',
@@ -57,47 +58,10 @@ export const schemaType = defineType({
       of: [{ type: 'string' }],
     }),
     defineField({
-      name: 'content',
-      title: 'Content',
+      name: 'sections',
+      title: 'Guide Sections',
       type: 'array',
-      of: [
-        { 
-          type: 'block',
-          name: 'textBlock',
-          title: 'Text'
-        },
-        {
-          type: 'image',
-          name: 'image',
-          title: 'Image',
-          options: { hotspot: true },
-          fields: [
-            {
-              name: 'alt',
-              type: 'string',
-              title: 'Alternative text',
-            },
-          ],
-        },
-        {
-          type: 'block',
-          name: 'codeBlock',
-          title: 'Code Block',
-          styles: [
-            { title: 'Normal', value: 'normal' },
-            { title: 'Code', value: 'code' },
-          ],
-          lists: [],
-          marks: {
-            decorators: [
-              { title: 'Strong', value: 'strong' },
-              { title: 'Emphasis', value: 'em' },
-              { title: 'Code', value: 'code' },
-            ],
-            annotations: [],
-          },
-        },
-      ],
+      of: sectionTypes,
     }),
     defineField({
       name: 'publishedAt',
@@ -114,7 +78,6 @@ export const schemaType = defineType({
     select: {
       title: 'title',
       subtitle: 'category.title',
-      media: 'image',
     },
   },
 })
