@@ -86,7 +86,6 @@ export const schemaType = defineType({
           styles: [
             { title: 'Normal', value: 'normal' },
             { title: 'Code', value: 'code' },
-            { title: 'Code Block', value: 'code-block' },
           ],
           lists: [],
           marks: {

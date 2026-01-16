@@ -7,7 +7,14 @@
     "start": "sanity start",
     "build": "sanity build",
     "dev": "sanity dev",
-    "deploy": "sanity deploy"
+    "deploy": "sanity deploy",
+    "deploy:graphql": "sanity graphql deploy",
+    "export": "sanity dataset export",
+    "import": "sanity dataset import",
+    "backup": "sanity dataset export troubleshooting-backup-$(date +%Y%m%d)",
+    "clean": "sanity dataset clean troubleshooting",
+    "migrate": "sanity dataset migrate",
+    "cors": "sanity cors add"
   },
   "dependencies": {
     "@sanity/client": "^6.21.0",
