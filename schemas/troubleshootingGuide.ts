@@ -1,5 +1,4 @@
 import { defineType, defineField } from 'sanity'
-import { sectionTypes } from './sections'
 
 export const schemaType = defineType({
   name: 'troubleshootingGuide',
@@ -58,10 +57,147 @@ export const schemaType = defineType({
       of: [{ type: 'string' }],
     }),
     defineField({
-      name: 'sections',
-      title: 'Guide Sections',
+      name: 'content',
+      title: 'Content',
       type: 'array',
-      of: sectionTypes,
+      of: [
+        {
+          type: 'block',
+          styles: [
+            { title: 'Normal', value: 'normal' },
+            { title: 'H2', value: 'h2' },
+            { title: 'H3', value: 'h3' },
+          ],
+          lists: [
+            { title: 'Bullet', value: 'bullet' },
+            { title: 'Numbered', value: 'number' },
+          ],
+          marks: {
+            decorators: [
+              { title: 'Strong', value: 'strong' },
+              { title: 'Emphasis', value: 'em' },
+              { title: 'Code', value: 'code' },
+            ],
+          },
+        },
+        {
+          type: 'object',
+          name: 'sideBySide',
+          title: 'Side by Side',
+          fields: [
+            defineField({
+              name: 'layout',
+              title: 'Layout',
+              type: 'string',
+              options: {
+                list: [
+                  { title: 'Image Left, Text Right', value: 'imageLeft' },
+                  { title: 'Text Left, Image Right', value: 'textLeft' },
+                ],
+              },
+              initialValue: 'imageLeft',
+            }),
+            defineField({
+              name: 'image',
+              title: 'Image',
+              type: 'image',
+              options: { hotspot: true },
+              fields: [
+                {
+                  name: 'alt',
+                  type: 'string',
+                  title: 'Alternative text',
+                },
+              ],
+            }),
+            defineField({
+              name: 'text',
+              title: 'Text',
+              type: 'text',
+              rows: 3,
+            }),
+          ],
+          preview: {
+            select: {
+              layout: 'layout',
+              image: 'image',
+            },
+            prepare({ layout, image }) {
+              return {
+                title: `${layout === 'imageLeft' ? 'Image Left' : 'Text Left'}`,
+                media: image,
+              }
+            },
+          },
+        },
+        {
+          type: 'object',
+          name: 'doubleColumn',
+          title: 'Double Column',
+          fields: [
+            defineField({
+              name: 'col1Image',
+              title: 'Column 1 Image',
+              type: 'image',
+              options: { hotspot: true },
+              fields: [
+                {
+                  name: 'alt',
+                  type: 'string',
+                  title: 'Alternative text',
+                },
+              ],
+            }),
+            defineField({
+              name: 'col1Title',
+              title: 'Column 1 Title',
+              type: 'string',
+            }),
+            defineField({
+              name: 'col1Text',
+              title: 'Column 1 Text',
+              type: 'text',
+              rows: 3,
+            }),
+            defineField({
+              name: 'col2Image',
+              title: 'Column 2 Image',
+              type: 'image',
+              options: { hotspot: true },
+              fields: [
+                {
+                  name: 'alt',
+                  type: 'string',
+                  title: 'Alternative text',
+                },
+              ],
+            }),
+            defineField({
+              name: 'col2Title',
+              title: 'Column 2 Title',
+              type: 'string',
+            }),
+            defineField({
+              name: 'col2Text',
+              title: 'Column 2 Text',
+              type: 'text',
+              rows: 3,
+            }),
+          ],
+          preview: {
+            select: {
+              col1Image: 'col1Image',
+              col2Image: 'col2Image',
+            },
+            prepare({ col1Image, col2Image }) {
+              return {
+                title: 'Double Column',
+                media: col1Image || col2Image,
+              }
+            },
+          },
+        },
+      ],
     }),
     defineField({
       name: 'publishedAt',
