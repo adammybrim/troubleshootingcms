@@ -15,13 +15,44 @@ export const TROUBLESHOOTING_GUIDE_QUERY = `
         list,
         children
       }),
-      // Handle sideBySide objects with image URL using follow arrow syntax
+      // Handle inline images
+      ...select(_type == "inlineImage" => {
+        "asset": {
+          "url": asset->url
+        },
+        alt,
+        caption
+      }),
+      // Handle sideBySide objects
       ...select(_type == "sideBySide" => {
-        title,
         layout,
+        textTitle,
         text,
-        "imageUrl": image.asset->url,
-        "imageAlt": image.alt
+        "image": {
+          "asset": {
+            "url": image.asset->url
+          },
+          alt
+        }
+      }),
+      // Handle doubleColumn objects
+      ...select(_type == "doubleColumn" => {
+        col1Title,
+        col1Text,
+        "col1Image": {
+          "asset": {
+            "url": col1Image.asset->url
+          },
+          alt
+        },
+        col2Title,
+        col2Text,
+        "col2Image": {
+          "asset": {
+            "url": col2Image.asset->url
+          },
+          alt
+        }
       })
     },
     category->{
