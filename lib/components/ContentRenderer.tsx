@@ -97,7 +97,7 @@ const ContentRenderer: React.FC<ContentRendererProps> = ({ content }) => {
       highlight: ({ children, value }: { children: React.ReactNode; value: { color: string } }) => {
         const colors = {
           yellow: 'bg-yellow-200',
-          green: 'bg-green-200',
+          brim: 'bg-[#39B54A]',
           red: 'bg-red-200',
           blue: 'bg-blue-200',
           purple: 'bg-purple-200',

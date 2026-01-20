@@ -90,7 +90,7 @@ export const schemaType = defineType({
                     options: {
                       list: [
                         { title: 'Yellow', value: 'yellow' },
-                        { title: 'Green', value: 'green' },
+                        { title: 'Brim', value: 'brim' },
                         { title: 'Red', value: 'red' },
                         { title: 'Blue', value: 'blue' },
                         { title: 'Purple', value: 'purple' },
