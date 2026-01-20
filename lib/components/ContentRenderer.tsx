@@ -116,15 +116,9 @@ const ContentRenderer: React.FC<ContentRendererProps> = ({ content }) => {
   const SideBySideComponent: React.FC<{ data: SideBySideContent }> = ({ data }) => {
     const flexDirection = data.layout === 'imageLeft' ? 'md:flex-row' : 'md:flex-row-reverse'
     
-    const imageSizes = {
-      small: 'max-w-xs',
-      medium: 'max-w-sm',
-      large: 'max-w-md',
-    }
-    
     return (
       <div className={`my-8 flex flex-col ${flexDirection} gap-6 items-center`}>
-        <div className={`w-full md:w-1/2 ${imageSizes[data.image.size || 'medium']}`}>
+        <div className="w-full md:w-1/2 max-w-sm">
           {data.image && (
             <img
               src={data.image.asset.url}
@@ -144,16 +138,10 @@ const ContentRenderer: React.FC<ContentRendererProps> = ({ content }) => {
   }
 
   const DoubleColumnComponent: React.FC<{ data: DoubleColumnContent }> = ({ data }) => {
-    const imageSizes = {
-      small: 'max-w-xs',
-      medium: 'max-w-sm',
-      large: 'max-w-md',
-    }
-    
     return (
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 my-6">
         <div className="space-y-4">
-          <div className={imageSizes[data.col1Image.size || 'medium']}>
+          <div className="max-w-xs">
             {data.col1Image && (
               <img
                 src={data.col1Image.asset.url}
@@ -170,7 +158,7 @@ const ContentRenderer: React.FC<ContentRendererProps> = ({ content }) => {
           </div>
         </div>
         <div className="space-y-4">
-          <div className={imageSizes[data.col2Image.size || 'medium']}>
+          <div className="max-w-xs">
             {data.col2Image && (
               <img
                 src={data.col2Image.asset.url}
@@ -191,16 +179,9 @@ const ContentRenderer: React.FC<ContentRendererProps> = ({ content }) => {
   }
 
   const InlineImageComponent: React.FC<{ data: InlineImage }> = ({ data }) => {
-    const sizeClasses = {
-      small: 'max-w-sm mx-auto',
-      medium: 'max-w-md mx-auto',
-      large: 'max-w-lg mx-auto',
-      full: 'w-full',
-    }
-    
     return (
       <div className="my-6">
-        <div className={sizeClasses[data.size || 'large']}>
+        <div className="w-full max-w-md mx-auto">
           <img
             src={data.asset.url}
             alt={data.alt || ''}
