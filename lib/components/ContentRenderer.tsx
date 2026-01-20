@@ -10,6 +10,7 @@ interface SideBySideContent {
     }
     alt?: string
   }
+  textTitle?: string
   text: string
 }
 
@@ -98,6 +99,9 @@ const ContentRenderer: React.FC<ContentRendererProps> = ({ content }) => {
           )}
         </div>
         <div className="w-full md:w-1/2">
+          {data.textTitle && (
+            <h3 className="text-lg font-semibold mb-3">{data.textTitle}</h3>
+          )}
           <p className="text-gray-700 leading-relaxed">{data.text}</p>
         </div>
       </div>

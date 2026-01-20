@@ -111,6 +111,12 @@ export const schemaType = defineType({
               ],
             }),
             defineField({
+              name: 'textTitle',
+              title: 'Text Title',
+              type: 'string',
+              description: 'Title for the text side only',
+            }),
+            defineField({
               name: 'text',
               title: 'Text',
               type: 'text',
