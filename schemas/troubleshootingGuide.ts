@@ -121,6 +121,20 @@ export const schemaType = defineType({
               title: 'Caption',
               description: 'Optional caption below the image',
             },
+            {
+              name: 'size',
+              title: 'Image Size',
+              type: 'string',
+              options: {
+                list: [
+                  { title: 'Small', value: 'small' },
+                  { title: 'Medium', value: 'medium' },
+                  { title: 'Large', value: 'large' },
+                  { title: 'Full Width', value: 'full' },
+                ],
+              },
+              initialValue: 'large',
+            },
           ],
         },
         {
@@ -150,6 +164,19 @@ export const schemaType = defineType({
                   name: 'alt',
                   type: 'string',
                   title: 'Alternative text',
+                },
+                {
+                  name: 'size',
+                  title: 'Image Size',
+                  type: 'string',
+                  options: {
+                    list: [
+                      { title: 'Small', value: 'small' },
+                      { title: 'Medium', value: 'medium' },
+                      { title: 'Large', value: 'large' },
+                    ],
+                  },
+                  initialValue: 'medium',
                 },
               ],
             }),
@@ -195,6 +222,19 @@ export const schemaType = defineType({
                   type: 'string',
                   title: 'Alternative text',
                 },
+                {
+                  name: 'size',
+                  title: 'Image Size',
+                  type: 'string',
+                  options: {
+                    list: [
+                      { title: 'Small', value: 'small' },
+                      { title: 'Medium', value: 'medium' },
+                      { title: 'Large', value: 'large' },
+                    ],
+                  },
+                  initialValue: 'medium',
+                },
               ],
             }),
             defineField({
@@ -218,6 +258,19 @@ export const schemaType = defineType({
                   name: 'alt',
                   type: 'string',
                   title: 'Alternative text',
+                },
+                {
+                  name: 'size',
+                  title: 'Image Size',
+                  type: 'string',
+                  options: {
+                    list: [
+                      { title: 'Small', value: 'small' },
+                      { title: 'Medium', value: 'medium' },
+                      { title: 'Large', value: 'large' },
+                    ],
+                  },
+                  initialValue: 'medium',
                 },
               ],
             }),

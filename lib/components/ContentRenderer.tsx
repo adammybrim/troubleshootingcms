@@ -9,6 +9,7 @@ interface SideBySideContent {
       url: string
     }
     alt?: string
+    size?: 'small' | 'medium' | 'large'
   }
   textTitle?: string
   text: string
@@ -21,6 +22,7 @@ interface DoubleColumnContent {
       url: string
     }
     alt?: string
+    size?: 'small' | 'medium' | 'large'
   }
   col1Title?: string
   col1Text: string
@@ -29,6 +31,7 @@ interface DoubleColumnContent {
       url: string
     }
     alt?: string
+    size?: 'small' | 'medium' | 'large'
   }
   col2Title?: string
   col2Text: string
@@ -51,6 +54,7 @@ interface InlineImage {
   }
   alt?: string
   caption?: string
+  size?: 'small' | 'medium' | 'large' | 'full'
 }
 
 type ContentItem = ContentBlock | SideBySideContent | DoubleColumnContent | InlineImage
@@ -112,9 +116,15 @@ const ContentRenderer: React.FC<ContentRendererProps> = ({ content }) => {
   const SideBySideComponent: React.FC<{ data: SideBySideContent }> = ({ data }) => {
     const flexDirection = data.layout === 'imageLeft' ? 'md:flex-row' : 'md:flex-row-reverse'
     
+    const imageSizes = {
+      small: 'max-w-xs',
+      medium: 'max-w-sm',
+      large: 'max-w-md',
+    }
+    
     return (
       <div className={`my-8 flex flex-col ${flexDirection} gap-6 items-center`}>
-        <div className="w-full md:w-1/2">
+        <div className={`w-full md:w-1/2 ${imageSizes[data.image.size || 'medium']}`}>
           {data.image && (
             <img
               src={data.image.asset.url}
@@ -134,16 +144,24 @@ const ContentRenderer: React.FC<ContentRendererProps> = ({ content }) => {
   }
 
   const DoubleColumnComponent: React.FC<{ data: DoubleColumnContent }> = ({ data }) => {
+    const imageSizes = {
+      small: 'max-w-xs',
+      medium: 'max-w-sm',
+      large: 'max-w-md',
+    }
+    
     return (
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 my-6">
         <div className="space-y-4">
-          {data.col1Image && (
-            <img
-              src={data.col1Image.asset.url}
-              alt={data.col1Image.alt || ''}
-              className="w-full h-auto rounded-lg shadow-md"
-            />
-          )}
+          <div className={imageSizes[data.col1Image.size || 'medium']}>
+            {data.col1Image && (
+              <img
+                src={data.col1Image.asset.url}
+                alt={data.col1Image.alt || ''}
+                className="w-full h-auto rounded-lg shadow-md"
+              />
+            )}
+          </div>
           <div className="w-full">
             {data.col1Title && (
               <h3 className="text-lg font-semibold mb-2">{data.col1Title}</h3>
@@ -152,13 +170,15 @@ const ContentRenderer: React.FC<ContentRendererProps> = ({ content }) => {
           </div>
         </div>
         <div className="space-y-4">
-          {data.col2Image && (
-            <img
-              src={data.col2Image.asset.url}
-              alt={data.col2Image.alt || ''}
-              className="w-full h-auto rounded-lg shadow-md"
-            />
-          )}
+          <div className={imageSizes[data.col2Image.size || 'medium']}>
+            {data.col2Image && (
+              <img
+                src={data.col2Image.asset.url}
+                alt={data.col2Image.alt || ''}
+                className="w-full h-auto rounded-lg shadow-md"
+              />
+            )}
+          </div>
           <div className="w-full">
             {data.col2Title && (
               <h3 className="text-lg font-semibold mb-2">{data.col2Title}</h3>
@@ -171,13 +191,22 @@ const ContentRenderer: React.FC<ContentRendererProps> = ({ content }) => {
   }
 
   const InlineImageComponent: React.FC<{ data: InlineImage }> = ({ data }) => {
+    const sizeClasses = {
+      small: 'max-w-sm mx-auto',
+      medium: 'max-w-md mx-auto',
+      large: 'max-w-lg mx-auto',
+      full: 'w-full',
+    }
+    
     return (
       <div className="my-6">
-        <img
-          src={data.asset.url}
-          alt={data.alt || ''}
-          className="w-full h-auto rounded-lg shadow-md"
-        />
+        <div className={sizeClasses[data.size || 'large']}>
+          <img
+            src={data.asset.url}
+            alt={data.alt || ''}
+            className="w-full h-auto rounded-lg shadow-md"
+          />
+        </div>
         {data.caption && (
           <p className="text-sm text-gray-600 text-center mt-2 italic">
             {data.caption}
