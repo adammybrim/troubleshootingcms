@@ -78,7 +78,50 @@ export const schemaType = defineType({
               { title: 'Emphasis', value: 'em' },
               { title: 'Code', value: 'code' },
             ],
+            annotations: [
+              {
+                name: 'highlight',
+                type: 'object',
+                fields: [
+                  {
+                    name: 'color',
+                    type: 'string',
+                    title: 'Highlight Color',
+                    options: {
+                      list: [
+                        { title: 'Yellow', value: 'yellow' },
+                        { title: 'Green', value: 'green' },
+                        { title: 'Red', value: 'red' },
+                        { title: 'Blue', value: 'blue' },
+                        { title: 'Purple', value: 'purple' },
+                        { title: 'Orange', value: 'orange' },
+                      ],
+                    },
+                    initialValue: 'yellow',
+                  },
+                ],
+              },
+            ],
           },
+        },
+        {
+          type: 'image',
+          name: 'inlineImage',
+          title: 'Image',
+          options: { hotspot: true },
+          fields: [
+            {
+              name: 'alt',
+              type: 'string',
+              title: 'Alternative text',
+            },
+            {
+              name: 'caption',
+              type: 'string',
+              title: 'Caption',
+              description: 'Optional caption below the image',
+            },
+          ],
         },
         {
           type: 'object',

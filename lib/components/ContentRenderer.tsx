@@ -44,7 +44,16 @@ interface ContentBlock {
   }>
 }
 
-type ContentItem = ContentBlock | SideBySideContent | DoubleColumnContent
+interface InlineImage {
+  _type: 'inlineImage'
+  asset: {
+    url: string
+  }
+  alt?: string
+  caption?: string
+}
+
+type ContentItem = ContentBlock | SideBySideContent | DoubleColumnContent | InlineImage
 
 interface ContentRendererProps {
   content: ContentItem[]
@@ -81,6 +90,22 @@ const ContentRenderer: React.FC<ContentRendererProps> = ({ content }) => {
       code: ({ children }: { children: React.ReactNode }) => (
         <code className="bg-gray-100 px-1 py-0.5 rounded text-sm">{children}</code>
       ),
+      highlight: ({ children, value }: { children: React.ReactNode; value: { color: string } }) => {
+        const colors = {
+          yellow: 'bg-yellow-200',
+          green: 'bg-green-200',
+          red: 'bg-red-200',
+          blue: 'bg-blue-200',
+          purple: 'bg-purple-200',
+          orange: 'bg-orange-200',
+        }
+        
+        return (
+          <span className={`${colors[value.color] || 'bg-yellow-200'} px-1 rounded`}>
+            {children}
+          </span>
+        )
+      },
     },
   }
 
@@ -145,6 +170,23 @@ const ContentRenderer: React.FC<ContentRendererProps> = ({ content }) => {
     )
   }
 
+  const InlineImageComponent: React.FC<{ data: InlineImage }> = ({ data }) => {
+    return (
+      <div className="my-6">
+        <img
+          src={data.asset.url}
+          alt={data.alt || ''}
+          className="w-full h-auto rounded-lg shadow-md"
+        />
+        {data.caption && (
+          <p className="text-sm text-gray-600 text-center mt-2 italic">
+            {data.caption}
+          </p>
+        )}
+      </div>
+    )
+  }
+
   return (
     <div className="prose prose-lg max-w-none">
       {content.map((item, index) => {
@@ -157,6 +199,10 @@ const ContentRenderer: React.FC<ContentRendererProps> = ({ content }) => {
               />
             </div>
           )
+        }
+        
+        if (item._type === 'inlineImage') {
+          return <InlineImageComponent key={index} data={item as InlineImage} />
         }
         
         if (item._type === 'sideBySide') {
