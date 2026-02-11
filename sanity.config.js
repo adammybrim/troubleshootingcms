@@ -12,8 +12,29 @@ export default defineConfig({
         S.list()
           .title('Content')
           .items([
-            S.documentTypeListItem('troubleshootingGuide').title('Troubleshooting Guides'),
-            S.documentTypeListItem('category').title('Categories'),
+            // Troubleshooting Section
+            S.listItem()
+              .title('Troubleshooting')
+              .icon(() => '🔧')
+              .child(
+                S.list()
+                  .title('Troubleshooting')
+                  .items([
+                    S.documentTypeListItem('troubleshootingGuide').title('Troubleshooting Guides'),
+                    S.documentTypeListItem('category').title('Categories'),
+                  ])
+              ),
+            // Downloads Section
+            S.listItem()
+              .title('Downloads')
+              .icon(() => '📄')
+              .child(
+                S.list()
+                  .title('Downloads')
+                  .items([
+                    S.documentTypeListItem('downloadablePdf').title('Downloadable PDFs'),
+                  ])
+              ),
           ]),
     }),
     visionTool(),
