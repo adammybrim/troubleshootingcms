@@ -29,13 +29,6 @@ export default defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: 'app',
-      title: 'App',
-      type: 'string',
-      description: 'The app this guide is for',
-      validation: (Rule) => Rule.required(),
-    }),
-    defineField({
       name: 'content',
       title: 'Content',
       type: 'array',

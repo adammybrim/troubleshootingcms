@@ -4,7 +4,6 @@ export const APP_GUIDE_QUERY = `
     title,
     slug,
     description,
-    app,
     content[]{
       _type,
       ...select(_type == "block" => { style, list, children }),
@@ -26,7 +25,6 @@ export const ALL_APP_GUIDES_QUERY = `
     title,
     slug,
     description,
-    app,
     tags,
     featured,
     publishedAt,
@@ -40,36 +38,7 @@ export const FEATURED_APP_GUIDES_QUERY = `
     title,
     slug,
     description,
-    app,
     tags,
-    publishedAt,
-    lastUpdated
-  }
-`
-
-// GROQ query for fetching app guides by app
-export const APP_GUIDES_BY_APP_QUERY = `
-  *[_type == "appGuide" && app == $appName] | order(lastUpdated desc) {
-    title,
-    slug,
-    description,
-    app,
-    tags,
-    featured,
-    publishedAt,
-    lastUpdated
-  }
-`
-
-// GROQ query for fetching recently updated app guides
-export const RECENTLY_UPDATED_APP_GUIDES_QUERY = `
-  *[_type == "appGuide"] | order(lastUpdated desc) {
-    title,
-    slug,
-    description,
-    app,
-    tags,
-    featured,
     publishedAt,
     lastUpdated
   }
@@ -77,11 +46,10 @@ export const RECENTLY_UPDATED_APP_GUIDES_QUERY = `
 
 // GROQ query for searching app guides
 export const SEARCH_APP_GUIDES_QUERY = `
-  *[_type == "appGuide" && title match $searchTerm || description match $searchTerm || app match $searchTerm || tags match $searchTerm] | order(lastUpdated desc) {
+  *[_type == "appGuide" && title match $searchTerm || description match $searchTerm || tags match $searchTerm] | order(lastUpdated desc) {
     title,
     slug,
     description,
-    app,
     tags,
     featured,
     publishedAt,
@@ -91,9 +59,9 @@ export const SEARCH_APP_GUIDES_QUERY = `
 
 // GROQ query for getting all unique apps
 export const ALL_APPS_QUERY = `
-  *[_type == "appGuide"] | order(app asc) {
-    app
-  } | groupBy(app) | order(_key asc) {
+  *[_type == "appGuide"] | order(title asc) {
+    title
+  } | groupBy(title) | order(_key asc) {
     _key,
     count
   }
@@ -103,7 +71,6 @@ export const ALL_APPS_QUERY = `
 export const APP_GUIDE_STATS_QUERY = `
   {
     "totalGuides": count(*[_type == "appGuide"]),
-    "featuredGuides": count(*[_type == "appGuide" && featured == true]),
-    "totalApps": count(distinct(*[_type == "appGuide"].app))
+    "featuredGuides": count(*[_type == "appGuide" && featured == true])
   }
 `
