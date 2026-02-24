@@ -4,6 +4,7 @@ export const TROUBLESHOOTING_GUIDE_QUERY = `
     title,
     slug,
     description,
+    "coverImage": { "asset": { "url": coverImage.asset->url }, alt },
     difficulty,
     estimatedTime,
     prerequisites,
@@ -66,17 +67,39 @@ export const TROUBLESHOOTING_GUIDE_QUERY = `
 
 // GROQ query for fetching all troubleshooting guides
 export const ALL_TROUBLESHOOTING_GUIDES_QUERY = `
-  *[_type == "troubleshootingGuide"] | order(publishedAt desc) {
+  *[_type == "troubleshootingGuide"] | order(lastUpdated desc) {
     title,
     slug,
     description,
+    "coverImage": { "asset": { "url": coverImage.asset->url }, alt },
     difficulty,
     estimatedTime,
+    prerequisites,
     category->{
       title,
       slug
     },
-    publishedAt
+    publishedAt,
+    lastUpdated
+  }
+`
+
+// GROQ query for fetching featured guides
+export const FEATURED_GUIDES_QUERY = `
+  *[_type == "troubleshootingGuide" && featured == true] | order(lastUpdated desc) {
+    title,
+    slug,
+    description,
+    "coverImage": { "asset": { "url": coverImage.asset->url }, alt },
+    difficulty,
+    estimatedTime,
+    prerequisites,
+    category->{
+      title,
+      slug
+    },
+    publishedAt,
+    lastUpdated
   }
 `
 
@@ -86,8 +109,15 @@ export const GUIDES_BY_CATEGORY_QUERY = `
     title,
     slug,
     description,
+    "coverImage": { "asset": { "url": coverImage.asset->url }, alt },
     difficulty,
     estimatedTime,
-    publishedAt
+    prerequisites,
+    category->{
+      title,
+      slug
+    },
+    publishedAt,
+    lastUpdated
   }
 `
