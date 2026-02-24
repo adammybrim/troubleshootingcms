@@ -24,6 +24,17 @@ export default defineConfig({
                     S.documentTypeListItem('category').title('Categories'),
                   ])
               ),
+            // App Guides Section
+            S.listItem()
+              .title('App Guides')
+              .icon(() => '📱')
+              .child(
+                S.list()
+                  .title('App Guides')
+                  .items([
+                    S.documentTypeListItem('appGuide').title('App Guides'),
+                  ])
+              ),
             // Downloads Section
             S.listItem()
               .title('Downloads')
