@@ -29,6 +29,20 @@ export default defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
+      name: 'coverImage',
+      title: 'Cover Image',
+      type: 'image',
+      options: { hotspot: true },
+      fields: [
+        {
+          name: 'alt',
+          type: 'string',
+          title: 'Alternative text',
+        },
+      ],
+      description: 'Cover image displayed next to the app guide',
+    }),
+    defineField({
       name: 'content',
       title: 'Content',
       type: 'array',

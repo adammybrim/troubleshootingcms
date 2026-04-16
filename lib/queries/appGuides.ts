@@ -4,6 +4,7 @@ export const APP_GUIDE_QUERY = `
     title,
     slug,
     description,
+    "coverImage": { "asset": { "url": coverImage.asset->url }, alt },
     content[]{
       _type,
       ...select(_type == "block" => { style, list, children }),
@@ -25,6 +26,7 @@ export const ALL_APP_GUIDES_QUERY = `
     title,
     slug,
     description,
+    "coverImage": { "asset": { "url": coverImage.asset->url }, alt },
     tags,
     featured,
     publishedAt,
@@ -38,6 +40,7 @@ export const FEATURED_APP_GUIDES_QUERY = `
     title,
     slug,
     description,
+    "coverImage": { "asset": { "url": coverImage.asset->url }, alt },
     tags,
     publishedAt,
     lastUpdated
@@ -50,6 +53,7 @@ export const SEARCH_APP_GUIDES_QUERY = `
     title,
     slug,
     description,
+    "coverImage": { "asset": { "url": coverImage.asset->url }, alt },
     tags,
     featured,
     publishedAt,
